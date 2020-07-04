@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
-import ListsContextProvider,{ListsContext} from '../Context/ListsContextProvider';
-import ItemsContextProvider,{ItemsContext} from '../Context/ItemsContextProvider';
+import GlobalContext from '../Context/GlobalContext';
+
 import Header from '../components/Header/Header';
 import Lists from './Lists';
 import List from './List';
@@ -29,27 +29,16 @@ const App = () => (
     <GlobalStyle />
     <AppWrapper>
       <Header />
-      <ListsContextProvider>
-      <ItemsContextProvider>
-      <ListsContext.Consumer>
-      {({list,lists,loading:listsLoading,error:listsError,getListsRequest,getListRequest }) => (
-        <ItemsContext.Consumer>
-       { ({ items,loading:itemsLoading,error:itemsError,getItemsRequest,addItemRequest}) => (
+      <GlobalContext>
 
       <Switch>
-       <Route exact path='/' 
-       render={props => lists && <Lists lists={lists} loading={listsLoading} error={listsError} getListsRequest={getListsRequest} {...props} />} />
-        <Route path='/list/:id/new'render={props => <Form addItemRequest={addItemRequest} {...props} />} />
-        <Route path='/list/:id'
-         render={props => list  && items && <List list={list} items={items} loading={itemsLoading} error={itemsError} getListRequest={getListRequest} getItemsRequest={getItemsRequest} {...props} />}/>
+       <Route exact path='/'  component={Lists} />
+        <Route path='/list/:id/new' component={Form} />
+        <Route path='/list/:id' component={List} />
       </Switch>
       )}
-              </ItemsContext.Consumer>
 )}
-      </ListsContext.Consumer>
-            </ItemsContextProvider>
-
-            </ListsContextProvider>
+      </GlobalContext>
 
     </AppWrapper>
   </>

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import SubHeader from '../components/Header/SubHeader';
 import ListItem from '../components/ListItem/ListItem';
-
+import { ListsContext } from '../Context/ListsContextProvider';
+import { ItemsContext } from '../Context/ItemsContextProvider';
 const ListItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -14,8 +15,10 @@ const Alert = styled.span`
   width: 100%;
   text-align: center;
 `;
-    const List = ({items,loading , error,list, getListRequest, getItemsRequest, match,history}) => {
+    const List = ({ match,history}) => {
 
+const { list, getListRequest } = React.useContext(ListsContext);
+const { loading, error, items, getItemsRequest } = React.useContext(ItemsContext);
    React.useEffect(() => {
     if(!list.id ) {
       getListRequest(match.params.id);
