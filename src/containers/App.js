@@ -36,8 +36,8 @@ const App = () => (
         <Route path='/list/:id/new' component={Form} />
         <Route path='/list/:id' component={List} />
       </Switch>
-      )}
-)}
+      
+
       </GlobalContext>
 
     </AppWrapper>

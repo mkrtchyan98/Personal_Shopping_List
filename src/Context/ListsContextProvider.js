@@ -1,5 +1,4 @@
 import React from 'react';
-import withDataFetching from '../withDataFetching';
 
 
 async function fetchData(dataSource) {
